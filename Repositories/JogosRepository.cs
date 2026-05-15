@@ -20,5 +20,21 @@ namespace JogosMVC.Repositories
         {
             return _context.Jogos.ToList();
         }
+
+        public void Adicionar(Jogos j)
+        {
+            _context.Jogos.Add(j);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            Jogos j = _context.Jogos.FirstOrDefault(x => x.Id == id);
+
+            if(j == null)return;
+            
+            _context.Jogos.Remove(j);
+            _context.SaveChanges();
+        }
     }
 }

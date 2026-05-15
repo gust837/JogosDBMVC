@@ -1,0 +1,30 @@
+<body>
+    <h1 >Cadastrar Jogo</h1>
+
+    <form action="" method="post">
+        <div>
+            <label for="" >Titúlo</label>
+            <input type="text" name="titulo" required>
+        </div>
+
+        <div>
+            <label for="">Genêro</label>
+            <input type="text" name="genero">
+        </div>
+
+        <div>
+            <label for="">Ano</label>
+            <input type="number" name="ano" required>
+        </div>
+
+        <div>
+            <label for="">Nota</label>
+            <input type="text" name="nota" required>
+        </div>
+        <button type="submit">Salvar</button>
+    </form>
+    
+        <a asp-controller="Jogos" asp-action="Index">Voltar</a>
+
+        
+</body>

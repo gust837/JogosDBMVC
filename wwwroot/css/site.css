@@ -1,31 +1,253 @@
-html {
-  font-size: 14px;
+/* ============================================================
+   JOGOS.CSS — Estilo para página de listagem de jogos
+   Estética: Retro-Arcade / Terminal Neon
+   Fontes: Press Start 2P (display) + Share Tech Mono (corpo)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+
+/* ── Variáveis ── */
+:root {
+  --bg:            #0d0d0d;
+  --bg-panel:      #111418;
+  --bg-row:        #13181f;
+  --bg-row-hover:  #1a2535;
+
+  --accent:        #00e5ff;
+  --accent-dim:    rgba(0, 229, 255, 0.15);
+  --accent-border: rgba(0, 229, 255, 0.3);
+
+  --danger:        #ff3c5f;
+  --danger-dim:    rgba(255, 60, 95, 0.12);
+
+  --gold:          #f5c542;
+
+  --text:          #d4e8f0;
+  --text-muted:    #4a6880;
+  --text-dim:      #243040;
+
+  --border:        rgba(0, 229, 255, 0.12);
+  --radius:        3px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* ── Body ── */
 body {
-  margin-bottom: 60px;
+  background-color: var(--bg);
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 3rem 2.5rem;
+
+  /* grade de fundo sutil */
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* ── H1 ── */
+h1 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow:
+    0 0 12px rgba(0, 229, 255, 0.6),
+    0 0 30px rgba(0, 229, 255, 0.2);
+  margin-bottom: 0.75rem;
+
+  /* linha decorativa antes */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+h1::before {
+  content: '▶';
+  font-size: 0.7em;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.7);
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Parágrafo total ── */
+p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  margin-bottom: 1.8rem;
+}
+
+p::before {
+  content: '// ';
+  color: var(--text-dim);
+}
+
+/* ── Link "Novo Jogo" ── */
+a {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.15s;
+
+  box-shadow:
+    0 0 10px rgba(0, 229, 255, 0.4),
+    0 0 24px rgba(0, 229, 255, 0.15);
+}
+
+a::before {
+  content: '+ ';
+  font-weight: bold;
+}
+
+a:hover {
+  box-shadow:
+    0 0 18px rgba(0, 229, 255, 0.7),
+    0 0 40px rgba(0, 229, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+a:active {
+  transform: translateY(0);
+}
+
+/* ── Tabela — container ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-panel);
+
+  /* borda superior em neon */
+  box-shadow:
+    0 -2px 0 0 var(--accent),
+    0 4px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Cabeçalho ── */
+thead tr {
+  background: #0a0e13;
+  border-bottom: 1px solid var(--accent);
+}
+
+th {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  padding: 1.1rem 1.4rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+th:last-child {
+  text-align: center;
+}
+
+/* ── Linhas do corpo ── */
+tbody tr {
+  background: var(--bg-row);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s, box-shadow 0.18s;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--bg-row-hover);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* ── Células ── */
+td {
+  padding: 0.9rem 1.4rem;
+  font-size: 0.88rem;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
+/* Título do jogo — destaque */
+td:first-child {
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+/* Gênero */
+td:nth-child(2) {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* Ano */
+td:nth-child(3) {
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+}
+
+/* Nota */
+td:nth-child(4) {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+/* Ações */
+td:last-child {
+  text-align: center;
+}
+
+/* ── Botão Excluir ── */
+button {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--danger);
+  background: var(--danger-dim);
+  border: 1px solid rgba(255, 60, 95, 0.3);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+
+button:hover {
+  background: rgba(255, 60, 95, 0.22);
+  box-shadow: 0 0 12px rgba(255, 60, 95, 0.45);
+  transform: scale(1.04);
+}
+
+button:active {
+  transform: scale(0.97);
 }

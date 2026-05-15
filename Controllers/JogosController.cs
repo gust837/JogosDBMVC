@@ -10,21 +10,51 @@ using Microsoft.Extensions.Logging;
 
 namespace JogosMVC.Controllers
 {
-    [Route("[controller]")]
     public class JogosController : Controller
     {
-        private readonly JogosRepository  _repository;
+        private readonly JogosRepository _repository;
 
-        public JogosController (JogosRepository repository)
+        public JogosController(JogosRepository repository)
         {
             _repository = repository;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+            @ViewData["Title"] = "Lista";
             List<Jogos> jogos = _repository.ObterJogos();
+            ViewBag.TotalJogos = jogos.Count;
             return View(jogos);
         }
 
+        [HttpGet]
+        public IActionResult Cadastro()
+        {
+            @ViewData["Title"] = "Cadastro";
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Cadastro(Jogos j)
+        {
+            string notaString = Request.Form["nota"].ToString().Replace(".", ",");
+
+            if (decimal.TryParse(notaString, out var notaConvertida))
+            {
+                j.Nota = notaConvertida;
+            }
+
+            _repository.Adicionar(j);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            _repository.Delete(id);
+            return RedirectToAction("Index");
+        }
     }
 }

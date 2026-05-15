@@ -1,7 +1,11 @@
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model List<JogosMVC.Models.Jogos>
+
+
 <body>
     <h1>Jogos</h1>
-
-    <a href="">Novo Jogo</a>
+    <p>Total de jogos @ViewBag.TotalJogos</p>
+    <a asp-controller="Jogos" asp-action="Cadastro">Novo Jogo</a>
 
     <table>
         <thead>
@@ -14,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            @* <tr>
                 <td>The Legend of Zelda: Breath of the Wild</td>
                 <td>Ação e Aventura, Mundo Aberto</td>
                 <td>2017</td>
@@ -22,7 +26,26 @@
                 <td>
                     <button>Excluir</button>
                 </td>
+            </tr> *@
+            @foreach(Jogos j in Model)
+            {
+                <tr>
+                <td>@j.Titulo</td>
+                <td>@j.Genero</td>
+                <td>@j.Ano</td>
+                <td>@j.Nota</td>
+                <td>
+                    <form asp-controller="Jogos" asp-action="Delete" method="post"
+                    onsubmit="return confirm('Deseja realmente excluir?');"
+                    >
+                        <input type="hidden" value="@j.Id" name="id">
+                        <button type="submit">Excluir</button>
+
+                        
+                    </form>
+                </td>
             </tr>
+            }
         </tbody>
     </table>
 </body>
